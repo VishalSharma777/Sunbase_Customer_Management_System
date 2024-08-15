@@ -14,42 +14,62 @@ import com.example.demo.dtos.LoginUserDto;
 import com.example.demo.dtos.RegisterUserDto;
 import com.example.demo.model.User;
 
+/**
+ * AuthenticationController handles user authentication and registration requests.
+ * It exposes public endpoints for user registration and login.
+ */
 @RestController
 @RequestMapping("/api/v1/customers/public")
- 
 public class AuthenticationController {
-	  
-	 private final JwtService jwtService;
-	    
-	    private final AuthenticationService authenticationService;
+  
+    // Injecting JwtService and AuthenticationService dependencies
+    private final JwtService jwtService;
+    private final AuthenticationService authenticationService;
 
-	    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
-	        this.jwtService = jwtService;
-	        this.authenticationService = authenticationService;
-	    }
+    // Constructor for dependency injection
+    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
+        this.jwtService = jwtService;
+        this.authenticationService = authenticationService;
+    }
 
-	    @PostMapping("/register")
-	    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-	        User registeredUser = authenticationService.signup(registerUserDto);
+    /**
+     * Register a new user.
+     * @param registerUserDto The registration details (DTO).
+     * @return ResponseEntity containing the registered user details.
+     */
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
+        // Register the user using the authentication service
+        User registeredUser = authenticationService.signup(registerUserDto);
 
-	        return ResponseEntity.ok(registeredUser);
-	    }
-	 
-	    @PostMapping("/login")
-	    public ResponseEntity<?> authenticate(@RequestBody LoginUserDto loginUserDto) {
+        // Return the registered user details with an HTTP 200 status
+        return ResponseEntity.ok(registeredUser);
+    }
 
-	        
-	        try {
-		        User authenticatedUser = authenticationService.authenticate(loginUserDto);
+    /**
+     * Authenticate a user (login).
+     * @param loginUserDto The login details (DTO).
+     * @return ResponseEntity containing the JWT token and expiration time or an error message if authentication fails.
+     */
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticate(@RequestBody LoginUserDto loginUserDto) {
+        try {
+            // Authenticate the user using the authentication service
+            User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
-		        String jwtToken = jwtService.generateToken(authenticatedUser);
-		       
-		        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+            // Generate a JWT token for the authenticated user
+            String jwtToken = jwtService.generateToken(authenticatedUser);
 
-		        return ResponseEntity.ok(loginResponse);
-			} catch (Exception e) {
-				// TODO: handle exception
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-			}
-	    }
+            // Create a response with the JWT token and its expiration time
+            LoginResponse loginResponse = new LoginResponse()
+                    .setToken(jwtToken)
+                    .setExpiresIn(jwtService.getExpirationTime());
+
+            // Return the login response with an HTTP 200 status
+            return ResponseEntity.ok(loginResponse);
+        } catch (Exception e) {
+            // Handle exceptions during authentication and return an HTTP 401 status with an error message
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+    }
 }

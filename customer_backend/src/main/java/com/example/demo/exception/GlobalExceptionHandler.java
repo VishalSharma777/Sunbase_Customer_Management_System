@@ -15,46 +15,54 @@ import io.jsonwebtoken.ExpiredJwtException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	 @ExceptionHandler(Exception.class)
-	    public ProblemDetail handleSecurityException(Exception exception) {
-	        ProblemDetail errorDetail = null;
+    /**
+     * Handles various exceptions and returns a ProblemDetail response.
+     *
+     * @param exception the exception that was thrown
+     * @return a ProblemDetail object containing error details
+     */
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleSecurityException(Exception exception) {
+        ProblemDetail errorDetail;
 
-	        
-	        exception.printStackTrace();
+        // Print stack trace for debugging purposes
+        exception.printStackTrace();
 
-	        if (exception instanceof BadCredentialsException) {
-	            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
-	            errorDetail.setProperty("description", "The username or password is incorrect");
+        // Handle specific exceptions and set appropriate status codes and messages
+        if (exception instanceof BadCredentialsException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
+            errorDetail.setProperty("description", "The username or password is incorrect");
+            return errorDetail;
+        }
 
-	            return errorDetail;
-	        }
+        if (exception instanceof AccountStatusException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
+            errorDetail.setProperty("description", "The account is locked");
+            return errorDetail;
+        }
 
-	        if (exception instanceof AccountStatusException) {
-	            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-	            errorDetail.setProperty("description", "The account is locked");
-	        }
+        if (exception instanceof AccessDeniedException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
+            errorDetail.setProperty("description", "You are not authorized to access this resource");
+            return errorDetail;
+        }
 
-	        if (exception instanceof AccessDeniedException) {
-	            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-	            errorDetail.setProperty("description", "You are not authorized to access this resource");
-	        }
+        if (exception instanceof SignatureException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
+            errorDetail.setProperty("description", "The JWT signature is invalid");
+            return errorDetail;
+        }
 
-	        if (exception instanceof SignatureException) {
-	            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-	            errorDetail.setProperty("description", "The JWT signature is invalid");
-	        }
+        if (exception instanceof ExpiredJwtException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
+            errorDetail.setProperty("description", "The JWT token has expired");
+            return errorDetail;
+        }
 
-	        if (exception instanceof ExpiredJwtException) {
-	            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-	            errorDetail.setProperty("description", "The JWT token has expired");
-	        }
+        // For any other exception, return a generic server error response
+        errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
+        errorDetail.setProperty("description", "Unknown internal server error.");
 
-	        if (errorDetail == null) {
-	            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
-	            errorDetail.setProperty("description", "Unknown internal server error.");
-	        }
-
-	        return errorDetail;
-	    }
-	
+        return errorDetail;
+    }
 }

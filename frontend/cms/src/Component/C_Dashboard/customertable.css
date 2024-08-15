@@ -1,0 +1,92 @@
+/* Container for the table */
+.table-container {
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #1c1c2b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Button for adding customer */
+.add-customer-btn {
+    background-color: #4a4a6a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-right: 3px;
+    margin-top: 3px;
+}
+
+.add-customer-btn:hover {
+    background-color: #6b6b8d;
+}
+.table-top{
+    display: flex;
+    justify-content: space-between;
+}
+.search{
+    padding: 0.6rem;
+    border-radius: 0.2rem;
+    margin-right: 2px;
+}
+.sort{
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-right: 2px;
+    color: white;
+}
+
+/* Table styling */
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 16px;
+}
+
+.customer-table th,
+.customer-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.customer-table th {
+    background-color: #374151;
+}
+
+.customer-table tr:nth-child(even) {
+    background-color: #2d2d3b;
+}
+
+.customer-table tr:nth-child(odd) {
+    background-color: #1f1f2a;
+}
+
+/* Links for Edit and Delete */
+.edit-link,
+.delete-link {
+    color: #6b7280;
+    margin-right: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-link:hover,
+.delete-link:hover {
+    color: #cbd5e1;
+}
+
+/* Icons for the links (using emojis for simplicity) */
+.edit-link::after {
+    content: " ✏️";
+}
+
+.delete-link::after {
+    content: " 🗑️";
+}

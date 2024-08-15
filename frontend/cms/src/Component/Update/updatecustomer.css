@@ -1,0 +1,76 @@
+/* Form Container */
+.form-container {
+    width: 600px;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #1c1c2b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+}
+
+/* Form Title */
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Input Fields */
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Buttons Container */
+.form-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+/* Buttons Styling */
+.form-buttons button {
+    /* width: 10%; */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* Save Button */
+.save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+/* Clear Button */
+.clear-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.clear-btn:hover {
+    background-color: #0069d9;
+}
+
+/* Cancel Button */
+.cancel-btn {
+    /* margin-right: 2px; */
+    background-color: #dc3545;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}

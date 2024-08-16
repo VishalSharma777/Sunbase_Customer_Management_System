@@ -26,7 +26,7 @@ const CustomerTable = () => {
           setError(null);
           try {
             const response = await fetch(
-              `http://localhost:8072/api/v1/customers/public/customerList?search=${search}&page=${page}&size=${size}&sort=${sort}`,
+              `http://localhost:8072/api/v1/employees/public/employeeList?search=${search}&page=${page}&size=${size}&sort=${sort}`,
               {
                 method: "GET",
                 headers: {
@@ -63,7 +63,7 @@ const CustomerTable = () => {
   const  deleteCustomer= async (id) => {
         try {
           const response = await fetch(
-            `http://localhost:8072/api/v1/customers/public/${id}`,
+            `http://localhost:8072/api/v1/employees/public/${id}`,
             {
               method: "DELETE",
               headers: {
@@ -89,7 +89,7 @@ const CustomerTable = () => {
     const handleScnc = async () => {
         try {
           const response = await fetch(
-            "http://localhost:8072/api/v1/customers/public/usersList",
+            "http://localhost:8072/api/v1/employees/public/EmployeeList",
             {
               method: "GET",
               headers: {

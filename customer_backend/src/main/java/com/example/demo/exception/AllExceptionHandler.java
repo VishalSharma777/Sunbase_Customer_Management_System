@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class AllExceptionHandler {
 
     /**
      * Handles various exceptions and returns a ProblemDetail response.

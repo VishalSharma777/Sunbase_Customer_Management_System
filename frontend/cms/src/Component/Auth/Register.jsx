@@ -22,7 +22,7 @@ const Register = () => {
     e.preventDefault();
     try {
         const response = await fetch(
-          "http://localhost:8072/api/v1/customers/public/register",
+          "http://localhost:8072/api/v1/employees/public/register",
           {
             method: "POST",
             headers: {

@@ -27,7 +27,7 @@ const UpdateCustomer = () => {
         const fetchCustomer = async () => {
           try {
             const response = await fetch(
-              `http://localhost:8072/api/v1/customers/public/${id}`,
+              `http://localhost:8072/api/v1/employees/public/${id}`,
               {
                 method: "GET",
                 headers: {
@@ -64,7 +64,7 @@ const handleSubmit = async(e)=>{
     e.preventDefault();
     try {
         const response = await fetch(
-          `http://localhost:8072/api/v1/customers/public/${id}`,
+          `http://localhost:8072/api/v1/employees/public/${id}`,
           {
             method: "PUT",
             headers: {

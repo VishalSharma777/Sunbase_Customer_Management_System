@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.demo.model.CustomerModel;
 
-public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
+public interface CustomerInterface extends JpaRepository<CustomerModel, Long> {
 
     /**
      * Custom search query to find customers by first name, email, or city.

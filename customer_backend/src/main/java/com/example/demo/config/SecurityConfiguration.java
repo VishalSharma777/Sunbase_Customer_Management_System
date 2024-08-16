@@ -25,15 +25,15 @@ public class SecurityConfiguration {
 
     // Injecting dependencies for authentication and JWT filtering
     private final AuthenticationProvider authenticationProvider;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtFilter jwtFilter;
 
     // Constructor for dependency injection
     public SecurityConfiguration(
-        JwtAuthenticationFilter jwtAuthenticationFilter,
+        JwtFilter jwtFilter,
         AuthenticationProvider authenticationProvider
     ) {
         this.authenticationProvider = authenticationProvider;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtFilter = jwtFilter;
     }
 
     /**
@@ -51,7 +51,7 @@ public class SecurityConfiguration {
             // Configuring authorization rules for requests
             .authorizeHttpRequests(authz -> authz
                 // Permitting all requests to public customer-related endpoints
-                .requestMatchers("/api/v1/customers/public/**").permitAll()
+                .requestMatchers("/api/v1/employees/public/**").permitAll()
                 // Requiring authentication for all other requests
                 .anyRequest().authenticated()
             )
@@ -65,7 +65,7 @@ public class SecurityConfiguration {
             .authenticationProvider(authenticationProvider)
 
             // Adding the JWT authentication filter before the UsernamePasswordAuthenticationFilter
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         // Building the security filter chain
         return http.build();

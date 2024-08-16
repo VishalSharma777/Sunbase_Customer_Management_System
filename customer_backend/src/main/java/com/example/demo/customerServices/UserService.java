@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import com.example.demo.customerRepository.UserInterface;
 import com.example.demo.dtos.LoginUserDto;
 import com.example.demo.dtos.RegisterUserDto;
-import com.example.demo.model.User;
+import com.example.demo.model.UserModel;
 
 @Service
-public class AuthenticationService {
+public class UserService {
     
     private final UserInterface userRepository; // Repository to handle user-related database operations
     private final PasswordEncoder passwordEncoder; // Encoder to hash user passwords
     private final AuthenticationManager authenticationManager; // Manages authentication processes
 
     // Constructor to inject dependencies
-    public AuthenticationService(
+    public UserService(
             UserInterface userRepository,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder
@@ -32,26 +32,26 @@ public class AuthenticationService {
      * Registers a new user by saving the user data in the database.
      * 
      * @param input Data Transfer Object (DTO) containing registration data (full name, email, password)
-     * @return The saved User entity after registration
+     * @return The saved UserModel entity after registration
      */
-    public User signup(RegisterUserDto input) {
-        // Create a new User entity and set its fields based on the DTO input
-        User user = new User();
-        user.setFullName(input.getFullName());
-        user.setEmail(input.getEmail());
-        user.setPassword(passwordEncoder.encode(input.getPassword())); // Encrypt the password
+    public UserModel signup(RegisterUserDto input) {
+        // Create a new UserModel entity and set its fields based on the DTO input
+        UserModel userModel = new UserModel();
+        userModel.setFullName(input.getFullName());
+        userModel.setEmail(input.getEmail());
+        userModel.setPassword(passwordEncoder.encode(input.getPassword())); // Encrypt the password
 
         // Save the new user to the database and return the saved entity
-        return userRepository.save(user);
+        return userRepository.save(userModel);
     }
 
     /**
      * Authenticates a user by verifying their email and password.
      * 
      * @param input DTO containing login data (email, password)
-     * @return The authenticated User entity
+     * @return The authenticated UserModel entity
      */
-    public User authenticate(LoginUserDto input) {
+    public UserModel authenticate(LoginUserDto input) {
         // Perform authentication using the provided email and password
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(

@@ -7,29 +7,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.customerServices.AuthenticationService;
+import com.example.demo.customerServices.UserService;
 import com.example.demo.customerServices.JwtService;
 import com.example.demo.dtos.LoginResponse;
 import com.example.demo.dtos.LoginUserDto;
 import com.example.demo.dtos.RegisterUserDto;
-import com.example.demo.model.User;
+import com.example.demo.model.UserModel;
 
 /**
- * AuthenticationController handles user authentication and registration requests.
+ * UserController handles user authentication and registration requests.
  * It exposes public endpoints for user registration and login.
  */
 @RestController
-@RequestMapping("/api/v1/customers/public")
-public class AuthenticationController {
+@RequestMapping("/api/v1/employees/public")
+public class UserController {
   
-    // Injecting JwtService and AuthenticationService dependencies
+    // Injecting JwtService and UserService dependencies
     private final JwtService jwtService;
-    private final AuthenticationService authenticationService;
+    private final UserService userService;
 
     // Constructor for dependency injection
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
+    public UserController(JwtService jwtService, UserService userService) {
         this.jwtService = jwtService;
-        this.authenticationService = authenticationService;
+        this.userService = userService;
     }
 
     /**
@@ -38,9 +38,9 @@ public class AuthenticationController {
      * @return ResponseEntity containing the registered user details.
      */
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<UserModel> register(@RequestBody RegisterUserDto registerUserDto) {
         // Register the user using the authentication service
-        User registeredUser = authenticationService.signup(registerUserDto);
+        UserModel registeredUser = userService.signup(registerUserDto);
 
         // Return the registered user details with an HTTP 200 status
         return ResponseEntity.ok(registeredUser);
@@ -55,7 +55,7 @@ public class AuthenticationController {
     public ResponseEntity<?> authenticate(@RequestBody LoginUserDto loginUserDto) {
         try {
             // Authenticate the user using the authentication service
-            User authenticatedUser = authenticationService.authenticate(loginUserDto);
+            UserModel authenticatedUser = userService.authenticate(loginUserDto);
 
             // Generate a JWT token for the authenticated user
             String jwtToken = jwtService.generateToken(authenticatedUser);

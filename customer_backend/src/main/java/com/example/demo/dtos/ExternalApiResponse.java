@@ -2,7 +2,7 @@ package com.example.demo.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SunBaseResponse {
+public class ExternalApiResponse {
 
     // Unique identifier for the customer
     private String uuid;
@@ -34,13 +34,13 @@ public class SunBaseResponse {
     private String phone;
 
     // Default constructor
-    public SunBaseResponse() {
+    public ExternalApiResponse() {
         super();
         // TODO Auto-generated constructor stub
     }
 
     // Parameterized constructor to initialize all fields
-    public SunBaseResponse(String uuid, String firstName, String lastName, String street, String address, String city,
+    public ExternalApiResponse(String uuid, String firstName, String lastName, String street, String address, String city,
                            String state, String email, String phone) {
         super();
         this.uuid = uuid;
@@ -147,7 +147,7 @@ public class SunBaseResponse {
     // Override toString method to return a string representation of the object
     @Override
     public String toString() {
-        return "SunBaseResponse [uuid=" + uuid + ", firstName=" + firstName + ", lastName=" + lastName + ", street="
+        return "ExternalApiResponse [uuid=" + uuid + ", firstName=" + firstName + ", lastName=" + lastName + ", street="
                 + street + ", address=" + address + ", city=" + city + ", state=" + state + ", email=" + email
                 + ", phone=" + phone + "]";
     }

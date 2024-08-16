@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
  
-import com.example.demo.model.User;
+import com.example.demo.model.UserModel;
 
-public interface UserInterface extends CrudRepository<User, Long> {
+public interface UserInterface extends CrudRepository<UserModel, Long> {
 
     /**
      * Custom method to find a user by their email address.
@@ -14,5 +14,5 @@ public interface UserInterface extends CrudRepository<User, Long> {
      * @param email The email address of the user.
      * @return An Optional containing the user if found, or empty if not.
      */
-    Optional<User> findByEmail(String email);
+    Optional<UserModel> findByEmail(String email);
 }

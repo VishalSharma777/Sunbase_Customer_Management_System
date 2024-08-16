@@ -17,7 +17,7 @@ const Login = () => {
 
         try {
           const response = await fetch(
-            "http://localhost:8072/api/v1/customers/public/login",
+            "http://localhost:8072/api/v1/employees/public/login",
             {
               method: "POST",
               headers: {

@@ -28,7 +28,7 @@ const handleSubmit = async(e)=>{
     e.preventDefault();
     try {
         const response = await fetch(
-          "http://localhost:8072/api/v1/customers/public/create",
+          "http://localhost:8072/api/v1/employees/public/create",
           {
             method: "POST",
             headers: {

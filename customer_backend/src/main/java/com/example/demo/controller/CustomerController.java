@@ -13,19 +13,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.customerServices.CustomerService;
-import com.example.demo.customerServices.SunBaseData;
+import com.example.demo.customerServices.ExternalApiServices;
 import com.example.demo.model.CustomerModel;
 
 @RestController
-@RequestMapping("/api/v1/customers")
+@RequestMapping("/api/v1/employees")
 public class CustomerController {
 
-    // Injecting CustomerService and SunBaseData services
+    // Injecting CustomerService and ExternalApiServices services
     private final CustomerService customerService;
-    private final SunBaseData sunbaseData;
+    private final ExternalApiServices sunbaseData;
 
     @Autowired
-    public CustomerController(CustomerService customerService, SunBaseData sunbaseData) {
+    public CustomerController(CustomerService customerService, ExternalApiServices sunbaseData) {
         this.customerService = customerService;
         this.sunbaseData = sunbaseData;
     }
@@ -75,7 +75,7 @@ public class CustomerController {
 
     // Delete a customer by ID (Public endpoint)
     @DeleteMapping("/public/{id}")
-    public ResponseEntity<CustomerModel> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<CustomerModel> deleteCustomerByID(@PathVariable Long id) {
         String check = customerService.deleteCustomer(id);
         if (check != null) {
             return ResponseEntity.notFound().build();
@@ -91,7 +91,7 @@ public class CustomerController {
     }
 
     // Get paginated and sorted list of customers with optional search (Public endpoint)
-    @GetMapping("/public/customerList")
+    @GetMapping("/public/employeeList")
     public Page<CustomerModel> getCustomers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -109,10 +109,10 @@ public class CustomerController {
         }
     }
 
-    // Fetch a list of users from an external source (SunBaseData) (Public endpoint)
-    @GetMapping("/public/usersList")
-    public ResponseEntity<List<CustomerModel>> getAllUser() {
-        List<CustomerModel> data = sunbaseData.getUserList();
+    // Fetch a list of users from an external source (ExternalApiServices) (Public endpoint)
+    @GetMapping("/public/EmployeeList")
+    public ResponseEntity<List<CustomerModel>> getAllEmployeeList() {
+        List<CustomerModel> data = sunbaseData.getEmployee();
         if (data == null) {
             return ResponseEntity.badRequest().build();
         }

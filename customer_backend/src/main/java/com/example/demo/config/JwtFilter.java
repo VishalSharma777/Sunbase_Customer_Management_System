@@ -21,11 +21,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * JwtAuthenticationFilter is a custom security filter that intercepts each HTTP request 
+ * JwtFilter is a custom security filter that intercepts each HTTP request 
  * to check for a valid JWT token. If a valid token is found, it authenticates the user.
  */
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtFilter extends OncePerRequestFilter {
 
     // HandlerExceptionResolver is used to handle exceptions within the filter
     private final HandlerExceptionResolver handlerExceptionResolver;
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
     // Constructor injection for dependencies
-    public JwtAuthenticationFilter(
+    public JwtFilter(
         JwtService jwtService,
         UserDetailsService userDetailsService,
         HandlerExceptionResolver handlerExceptionResolver

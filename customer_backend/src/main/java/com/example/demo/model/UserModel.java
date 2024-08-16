@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="Users")
-public class User implements UserDetails {
+public class UserModel implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +28,13 @@ public class User implements UserDetails {
     private String FullName; // Full name of the user
 
     // Default constructor
-    public User() {
+    public UserModel() {
         super();
         // Required by JPA
     }
 
-    // Parameterized constructor for creating a User instance
-    public User(Long id, String email, String password, String FullName) {
+    // Parameterized constructor for creating a UserModel instance
+    public UserModel(Long id, String email, String password, String FullName) {
         super();
         this.id = id;
         this.email = email;
@@ -99,7 +99,7 @@ public class User implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return true; // User is always enabled
+        return true; // UserModel is always enabled
     }
 
     // Getters and setters
@@ -137,6 +137,6 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
+        return "UserModel [id=" + id + ", email=" + email + ", password=" + password + "]";
     }
 }
